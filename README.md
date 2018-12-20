@@ -18,3 +18,23 @@ describe('Dragtest', () => {
   });
 });
 ```
+
+## position
+
+The drag command also accepts a `position` argument to decide at which position
+the element should be dropped.
+
+Possible values are topLeft, top, topRight, left, center, right, bottomLeft,
+bottom, and bottomRight.
+
+The default position is `top`.
+
+``` javascript
+describe('Dragtest', () => {
+  it('should dragndrop', () => {
+    cy.visit('/yourpage');
+
+    cy.get('.sourceitem').drag('.targetitem', 'bottom');
+  });
+});
+```

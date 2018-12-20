@@ -29,7 +29,7 @@ const DragSimulator = {
     if (!this.dropped && this.hasTriesLeft) {
       return cy
         .wrap(this.target)
-        .trigger('dragover', 'bottom')
+        .trigger('dragover', this.position)
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover());
     }
@@ -40,9 +40,10 @@ const DragSimulator = {
     }
     return this.drop();
   },
-  init(source, target) {
+  init(source, target, position) {
     this.source = source;
     this.target = target;
+    this.position = position;
 
     this.dragstart();
 
@@ -51,12 +52,12 @@ const DragSimulator = {
       return this.dragover();
     });
   },
-  simulate(sourceWrapper, targetSelector) {
+  simulate(sourceWrapper, targetSelector, position = 'top') {
     return cy.get(targetSelector)
-      .then(targetWrapper => this.init(sourceWrapper.get(0), targetWrapper.get(0)));
+      .then(targetWrapper => this.init(sourceWrapper.get(0), targetWrapper.get(0), position));
   },
 };
 
 Cypress.Commands.add('drag', {
   prevSubject: 'element',
-}, (subject, target) => DragSimulator.simulate(subject, target));
+}, (...args) => DragSimulator.simulate(...args));
