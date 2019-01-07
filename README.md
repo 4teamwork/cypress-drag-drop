@@ -1,6 +1,28 @@
 # cypress-drag-drop
 A cypress child command for drag'n'drop support.
 
+# Setup
+
+Install using npm:
+
+``` bash
+npm install --save-dev cypress-drag-drop
+```
+
+or yarn
+
+``` bash
+yarn add --dev cypress-drag-drop
+```
+
+Before Cypress is loaded (usually in your `commands.js`) put the following line:
+
+``` javascript
+require('cypress-drag-drop')
+```
+
+This will register the `drag` command.
+
 # Usage
 
 The `drag` command is a child command.
