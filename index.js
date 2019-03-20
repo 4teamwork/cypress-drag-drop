@@ -27,6 +27,7 @@ const DragSimulator = {
   },
   dragover() {
     if (!this.dropped && this.hasTriesLeft) {
+      this.counter += 1;
       return cy
         .wrap(this.target)
         .trigger('dragover', this.position)
@@ -35,7 +36,7 @@ const DragSimulator = {
     }
     if (!this.dropped) {
       return this.drop().then(() => {
-        throw new Error(`Exeeded maximum tries of: ${this.MAX_TRIES}, aborting`);
+        throw new Error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`);
       });
     }
     return this.drop();
