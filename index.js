@@ -46,6 +46,7 @@ const DragSimulator = {
     this.source = source;
     this.target = target;
     this.position = position;
+    this.counter = 0;
 
     this.dragstart();
 
