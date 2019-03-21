@@ -30,6 +30,7 @@ const DragSimulator = {
       this.counter += 1;
       return cy
         .wrap(this.target)
+        .trigger('mousemove', this.position)
         .trigger('dragover', this.position)
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover());
