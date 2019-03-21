@@ -36,10 +36,11 @@ const DragSimulator = {
     }
     if (!this.dropped) {
       return this.drop().then(() => {
-        throw new Error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`);
+        console.error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`);
+        return false;
       });
     }
-    return this.drop();
+    return this.drop().then(() => true);
   },
   init(source, target, position) {
     this.source = source;
