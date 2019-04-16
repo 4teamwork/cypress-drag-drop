@@ -1,3 +1,5 @@
+const dataTransfer = new DataTransfer();
+
 const DragSimulator = {
   MAX_TRIES: 5,
   DELAY_INTERVAL_MS: 10,
@@ -17,12 +19,12 @@ const DragSimulator = {
     cy
       .wrap(this.source)
       .trigger('mousedown', { which: 1, button: 0 })
-      .trigger('dragstart');
+      .trigger('dragstart', { dataTransfer: dataTransfer });
   },
   drop() {
     return cy
       .wrap(this.target)
-      .trigger('drop', { force: true })
+      .trigger('drop', { dataTransfer: dataTransfer, force: true })
       .trigger('mouseup', { which: 1, button: 0 });
   },
   dragover() {
@@ -30,7 +32,7 @@ const DragSimulator = {
       this.counter += 1;
       return cy
         .wrap(this.target)
-        .trigger('dragover', this.position)
+        .trigger('dragover', { dataTransfer: dataTransfer, position: this.position })
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover());
     }
