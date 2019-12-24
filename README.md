@@ -18,13 +18,13 @@ yarn add --dev @4tw/cypress-drag-drop
 Before Cypress is loaded (usually in your `commands.js`) put the following line:
 
 ``` javascript
-require('cypress-drag-drop')
+require('@4tw/cypress-drag-drop')
 ```
 
 Or, if you are using ES module syntax:
 
 ```javascript
-import 'cypress-drag-drop';
+import '@4tw/cypress-drag-drop';
 ```
 
 This will register the `drag` command.
