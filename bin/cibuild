@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export NO_COLOR=1
+export TERM=dumb
+
+yarn
+yarn test:ci --config baseUrl=http://localhost:$PORT1
