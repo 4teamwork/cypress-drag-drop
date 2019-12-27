@@ -16,6 +16,7 @@ const DragSimulator = {
   },
   dragstart() {
     cy.wrap(this.source)
+      .trigger('pointerdown', { which: 1, button: 0 })
       .trigger('mousedown', { which: 1, button: 0 })
       .trigger('dragstart', { dataTransfer })
   },
@@ -24,6 +25,7 @@ const DragSimulator = {
       .wrap(this.target)
       .trigger('drop', { dataTransfer, force: true })
       .trigger('mouseup', { which: 1, button: 0 })
+      .trigger('pointerup', { which: 1, button: 0 })
   },
   dragover() {
     if (!this.dropped && this.hasTriesLeft) {
