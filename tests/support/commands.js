@@ -12,3 +12,9 @@ Cypress.Commands.add(
     })
   },
 )
+
+Cypress.Commands.add('setExample', (example) => {
+  cy.findByTestId('activeExample')
+    .clear()
+    .type(example, { delay: 0 })
+})
