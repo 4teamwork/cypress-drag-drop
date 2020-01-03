@@ -16,16 +16,16 @@ const DragSimulator = {
   },
   dragstart() {
     cy.wrap(this.source)
-      .trigger('pointerdown', { which: 1, button: 0 })
-      .trigger('mousedown', { which: 1, button: 0 })
-      .trigger('dragstart', { dataTransfer })
+      .trigger('pointerdown', { which: 1, button: 0, force: this.force })
+      .trigger('mousedown', { which: 1, button: 0, force: this.force })
+      .trigger('dragstart', { dataTransfer, force: this.force })
   },
   drop() {
     return cy
       .wrap(this.target)
-      .trigger('drop', { dataTransfer, force: true })
-      .trigger('mouseup', { which: 1, button: 0 })
-      .trigger('pointerup', { which: 1, button: 0 })
+      .trigger('drop', { dataTransfer, force: this.force })
+      .trigger('mouseup', { which: 1, button: 0, force: this.force })
+      .trigger('pointerup', { which: 1, button: 0, force: this.force })
   },
   dragover() {
     if (!this.dropped && this.hasTriesLeft) {
@@ -35,6 +35,7 @@ const DragSimulator = {
         .trigger('dragover', {
           dataTransfer,
           position: this.position,
+          force: this.force,
         })
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover())
@@ -47,10 +48,11 @@ const DragSimulator = {
     }
     return this.drop().then(() => true)
   },
-  init(source, target, position) {
+  init(source, target, { position = 'top', force = false } = {}) {
     this.source = source
     this.target = target
     this.position = position
+    this.force = force
     this.counter = 0
 
     this.dragstart()
@@ -60,10 +62,10 @@ const DragSimulator = {
       return this.dragover()
     })
   },
-  simulate(sourceWrapper, targetSelector, position = 'top') {
+  simulate(sourceWrapper, targetSelector, options) {
     return cy
       .get(targetSelector)
-      .then((targetWrapper) => this.init(sourceWrapper.get(0), targetWrapper.get(0), position))
+      .then((targetWrapper) => this.init(sourceWrapper.get(0), targetWrapper.get(0), options))
   },
 }
 
