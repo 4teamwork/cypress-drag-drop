@@ -1,9 +1,14 @@
 const dataTransfer = new DataTransfer()
 
+function isAttached(element) {
+  return !!element.closest('html')
+}
+
 const DragSimulator = {
   MAX_TRIES: 5,
   DELAY_INTERVAL_MS: 10,
   counter: 0,
+  targetElement: null,
   rectsEqual(r1, r2) {
     return r1.top === r2.top && r1.right === r2.right && r1.bottom === r2.bottom && r1.left === r2.left
   },
@@ -14,6 +19,12 @@ const DragSimulator = {
   get hasTriesLeft() {
     return this.counter < this.MAX_TRIES
   },
+  set target(target) {
+    this.targetElement = target
+  },
+  get target() {
+    return cy.wrap(this.targetElement)
+  },
   dragstart() {
     cy.wrap(this.source)
       .trigger('pointerdown', { which: 1, button: 0, force: this.force })
@@ -21,17 +32,20 @@ const DragSimulator = {
       .trigger('dragstart', { dataTransfer, force: this.force })
   },
   drop() {
-    return cy
-      .wrap(this.target)
-      .trigger('drop', { dataTransfer, force: this.force })
-      .trigger('mouseup', { which: 1, button: 0, force: this.force })
-      .trigger('pointerup', { which: 1, button: 0, force: this.force })
+    return this.target.trigger('drop', { dataTransfer, force: this.force }).then(() => {
+      if (isAttached(this.targetElement)) {
+        this.target.trigger('mouseup', { which: 1, button: 0, force: this.force }).then(() => {
+          if (isAttached(this.targetElement)) {
+            this.target.trigger('pointerup', { which: 1, button: 0, force: this.force })
+          }
+        })
+      }
+    })
   },
   dragover() {
     if (!this.dropped && this.hasTriesLeft) {
       this.counter += 1
-      return cy
-        .wrap(this.target)
+      return this.target
         .trigger('dragover', {
           dataTransfer,
           position: this.position,
