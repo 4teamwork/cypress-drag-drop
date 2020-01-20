@@ -32,6 +32,8 @@ This will register the `drag` command.
 
 # Usage
 
+## drag
+
 The `drag` command is a child command.
 The command only accepts elements.
 As the drop target simply pass a selector as string.
@@ -48,9 +50,7 @@ describe('Dragtest', () => {
 })
 ```
 
-# Options
-
-The second argument of the `.drag` command is an object containing options.
+The command also accepts all the [common options](#options).
 
 ```javascript
 describe('Dragtest', () => {
@@ -62,14 +62,38 @@ describe('Dragtest', () => {
 })
 ```
 
+## move
+
+The `move` command is a child command.
+The command only accepts elements.
+Define `x` and `y` as an object parameter to move the element in x- and y-position relative to the elements current position.
+The command also accepts all the [common options](#options).
+
+In your cypress spec use the command as follows:
+
+```javascript
+describe('Dragtest', () => {
+  it('should dragndrop', () => {
+    cy.visit('/yourpage')
+
+    cy.get('.sourceitem').move({ x: 100, y: 100 })
+  })
+})
+```
+
+
+# Options
+
 ## position
 
-Decide at which position the element should be dropped.
+Decide at which position the element should be grabbed, moved and dropped.
 
 Possible values are topLeft, top, topRight, left, center, right, bottomLeft,
 bottom, and bottomRight.
 
 The default position is `top`.
+
+See https://docs.cypress.io/api/commands/trigger.html#Arguments for more information.
 
 ## force
 
