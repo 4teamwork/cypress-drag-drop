@@ -51,6 +51,7 @@ const DragSimulator = {
           position: this.position,
           force: this.force,
         })
+        .trigger('mousemove', this.position)
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover())
     }
