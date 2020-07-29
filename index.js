@@ -31,30 +31,27 @@ const DragSimulator = {
       .trigger('pointerdown', {
         which: 1,
         button: 0,
-        force: this.force,
         clientX,
         clientY,
-        position: this.position,
         eventConstructor: 'PointerEvent',
+        ...this.options,
       })
       .trigger('mousedown', {
         which: 1,
         button: 0,
-        force: this.force,
         clientX,
         clientY,
-        position: this.position,
         eventConstructor: 'MouseEvent',
+        ...this.options,
       })
-      .trigger('dragstart', { dataTransfer, force: this.force, position: this.position, eventConstructor: 'DragEvent' })
+      .trigger('dragstart', { dataTransfer, eventConstructor: 'DragEvent', ...this.options })
   },
   drop({ clientX, clientY } = {}) {
     return this.target
       .trigger('drop', {
         dataTransfer,
-        force: this.force,
-        position: this.position,
         eventConstructor: 'DragEvent',
+        ...this.options,
       })
       .then(() => {
         if (isAttached(this.targetElement)) {
@@ -62,22 +59,20 @@ const DragSimulator = {
             .trigger('mouseup', {
               which: 1,
               button: 0,
-              force: this.force,
               clientX,
               clientY,
-              position: this.position,
               eventConstructor: 'MouseEvent',
+              ...this.options,
             })
             .then(() => {
               if (isAttached(this.targetElement)) {
                 this.target.trigger('pointerup', {
                   which: 1,
                   button: 0,
-                  force: this.force,
                   clientX,
                   clientY,
-                  position: this.position,
                   eventConstructor: 'PointerEvent',
+                  ...this.options,
                 })
               }
             })
@@ -90,20 +85,17 @@ const DragSimulator = {
       return this.target
         .trigger('dragover', {
           dataTransfer,
-          position: this.position,
-          force: this.force,
           eventConstructor: 'DragEvent',
+          ...this.options,
         })
         .trigger('mousemove', {
-          force: this.force,
-          position: this.position,
+          ...this.options,
           clientX,
           clientY,
           eventConstructor: 'MouseEvent',
         })
         .trigger('pointermove', {
-          force: this.force,
-          position: this.position,
+          ...this.options,
           clientX,
           clientY,
           eventConstructor: 'PointerEvent',
@@ -115,9 +107,12 @@ const DragSimulator = {
       console.error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`)
     }
   },
-  init(source, target, { position = 'top', force = false } = {}) {
-    this.position = position
-    this.force = force
+  init(source, target, options = {}) {
+    this.options = {
+      ...options,
+      position: options.position || 'top',
+      force: options.force || false,
+    }
     this.counter = 0
     this.source = source.get(0)
     this.initialSourcePosition = this.source.getBoundingClientRect()
