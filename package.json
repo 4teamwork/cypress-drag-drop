@@ -31,6 +31,7 @@
     "@4tw/prettier-config": "^1.0.3",
     "@testing-library/cypress": "^7.0.2",
     "css-loader": "^3.4.0",
+    "cypress": "^6.1.0",
     "eslint": "^7.15.0",
     "prettier": "^2.2.1",
     "vue": "^2.6.12",
