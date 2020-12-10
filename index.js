@@ -28,50 +28,85 @@ const DragSimulator = {
   dragstart({ clientX, clientY } = {}) {
     return cy
       .wrap(this.source)
-      .trigger('pointerdown', { which: 1, button: 0, force: this.force, clientX, clientY, position: this.position })
-      .trigger('mousedown', { which: 1, button: 0, force: this.force, clientX, clientY, position: this.position })
-      .trigger('dragstart', { dataTransfer, force: this.force, position: this.position })
+      .trigger('pointerdown', {
+        which: 1,
+        button: 0,
+        force: this.force,
+        clientX,
+        clientY,
+        position: this.position,
+        eventConstructor: 'PointerEvent',
+      })
+      .trigger('mousedown', {
+        which: 1,
+        button: 0,
+        force: this.force,
+        clientX,
+        clientY,
+        position: this.position,
+        eventConstructor: 'MouseEvent',
+      })
+      .trigger('dragstart', { dataTransfer, force: this.force, position: this.position, eventConstructor: 'DragEvent' })
   },
   drop({ clientX, clientY } = {}) {
-    return this.target.trigger('drop', { dataTransfer, force: this.force, position: this.position }).then(() => {
-      if (isAttached(this.targetElement)) {
-        this.target
-          .trigger('mouseup', { which: 1, button: 0, force: this.force, clientX, clientY, position: this.position })
-          .then(() => {
-            if (isAttached(this.targetElement)) {
-              this.target.trigger('pointerup', {
-                which: 1,
-                button: 0,
-                force: this.force,
-                clientX,
-                clientY,
-                position: this.position,
-              })
-            }
-          })
-      }
-    })
+    return this.target
+      .trigger('drop', {
+        dataTransfer,
+        force: this.force,
+        position: this.position,
+        eventConstructor: 'DragEvent',
+      })
+      .then(() => {
+        if (isAttached(this.targetElement)) {
+          this.target
+            .trigger('mouseup', {
+              which: 1,
+              button: 0,
+              force: this.force,
+              clientX,
+              clientY,
+              position: this.position,
+              eventConstructor: 'MouseEvent',
+            })
+            .then(() => {
+              if (isAttached(this.targetElement)) {
+                this.target.trigger('pointerup', {
+                  which: 1,
+                  button: 0,
+                  force: this.force,
+                  clientX,
+                  clientY,
+                  position: this.position,
+                  eventConstructor: 'PointerEvent',
+                })
+              }
+            })
+        }
+      })
   },
   dragover({ clientX, clientY } = {}) {
-    if (!this.dropped && this.hasTriesLeft) {
+    if (!this.counter || !this.dropped && this.hasTriesLeft) {
       this.counter += 1
       return this.target
         .trigger('dragover', {
           dataTransfer,
           position: this.position,
           force: this.force,
+          eventConstructor: 'DragEvent',
         })
         .trigger('mousemove', {
           force: this.force,
           position: this.position,
           clientX,
           clientY,
+          eventConstructor: 'MouseEvent',
         })
         .trigger('pointermove', {
           force: this.force,
           position: this.position,
           clientX,
           clientY,
+          eventConstructor: 'PointerEvent',
         })
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover({ clientX, clientY }))
