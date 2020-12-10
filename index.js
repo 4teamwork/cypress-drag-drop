@@ -53,7 +53,7 @@ const DragSimulator = {
     })
   },
   dragover({ clientX, clientY } = {}) {
-    if (!this.dropped && this.hasTriesLeft) {
+    if (!this.counter || !this.dropped && this.hasTriesLeft) {
       this.counter += 1
       return this.target
         .trigger('dragover', {
