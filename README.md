@@ -94,12 +94,17 @@ bottom, and bottomRight.
 The default position is `top`.
 
 See https://docs.cypress.io/api/commands/trigger.html#Arguments for more information.
-
 ## force
 
 Force the drag'n'drop interaction. Meaning that the grabbing, moving and dropping
 is forced. See https://docs.cypress.io/guides/core-concepts/interacting-with-elements.html#Forcing
 for more information.
+
+## other options
+
+You can also use other options defined by default by Cypress, like: `ctrlKey`, `log`, `timeout`...
+
+See https://docs.cypress.io/api/commands/click.html#Arguments for more information.
 
 # Development
 
