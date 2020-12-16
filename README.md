@@ -100,6 +100,10 @@ Force the drag'n'drop interaction. Meaning that the grabbing, moving and droppin
 is forced. See https://docs.cypress.io/guides/core-concepts/interacting-with-elements.html#Forcing
 for more information.
 
+# hoverTime
+
+A delay in milliseconds between moving the cursor to the target and dropping.
+
 ## other options
 
 You can also use other options defined by default by Cypress, like: `ctrlKey`, `log`, `timeout`...
