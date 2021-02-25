@@ -30,6 +30,17 @@ import '@4tw/cypress-drag-drop'
 
 This will register the `drag` command.
 
+
+If you're using TypeScript, the following configuration in a `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "types": ["cypress", "@4tw/cypress-drag-drop"]
+  }
+}
+```
+
 # Usage
 
 ## drag
