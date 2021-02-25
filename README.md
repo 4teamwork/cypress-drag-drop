@@ -78,7 +78,6 @@ describe('Dragtest', () => {
 The `move` command is a child command.
 The command only accepts elements.
 Define `x` and `y` as an object parameter to move the element in x- and y-position relative to the elements current position.
-The command also accepts all the [common options](#options).
 
 In your cypress spec use the command as follows:
 
@@ -88,6 +87,18 @@ describe('Dragtest', () => {
     cy.visit('/yourpage')
 
     cy.get('.sourceitem').move({ x: 100, y: 100 })
+  })
+})
+```
+
+The command also accepts all the [common options](#options).
+
+```javascript
+describe('Dragtest', () => {
+  it('should dragndrop', () => {
+    cy.visit('/yourpage')
+
+    cy.get('.sourceitem').move({ x: 100, y: 100, ...options })
   })
 })
 ```
