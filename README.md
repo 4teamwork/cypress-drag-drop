@@ -147,3 +147,12 @@ is the name of the fixture which needs to be the filename of the component.
 ```javascript
 cy.setExample('NameOfTheComponent')
 ```
+
+
+# Release
+
+Release a new version of this package:
+
+```
+yarn run release
+```
