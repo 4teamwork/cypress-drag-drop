@@ -130,11 +130,11 @@ See https://docs.cypress.io/api/commands/click.html#Arguments for more informati
 
 # Development
 
-The plugin itselt is implemented in the `index.js` file.
+The plugin itself is implemented in the `index.js` file.
 
 ## Testing
 
-The tests can be run using cyress:
+The tests can be run using cypress:
 
 ```
 yarn test
