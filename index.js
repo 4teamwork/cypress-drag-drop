@@ -80,7 +80,7 @@ const DragSimulator = {
       })
   },
   dragover({ clientX, clientY } = {}) {
-    if (!this.counter || !this.dropped && this.hasTriesLeft) {
+    if (!this.counter || (!this.dropped && this.hasTriesLeft)) {
       this.counter += 1
       return this.target
         .trigger('dragover', {
@@ -130,7 +130,7 @@ const DragSimulator = {
   move(sourceWrapper, options) {
     const { x: deltaX, y: deltaY } = options
     const { top, left } = sourceWrapper.offset()
-    const finalCoords = { clientX: top + deltaX, clientY: left + deltaY };
+    const finalCoords = { clientX: top + deltaX, clientY: left + deltaY }
     this.init(sourceWrapper, sourceWrapper, options)
       .then(() => this.dragstart({ clientX: top, clientY: left }))
       .then(() => this.dragover(finalCoords))
