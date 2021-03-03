@@ -130,11 +130,11 @@ See https://docs.cypress.io/api/commands/click.html#Arguments for more informati
 
 # Development
 
-The plugin itselt is implemented in the `index.js` file.
+The plugin itself is implemented in the `index.js` file.
 
 ## Testing
 
-The tests can be run using cyress:
+The tests can be run using cypress:
 
 ```
 yarn test
@@ -146,4 +146,13 @@ is the name of the fixture which needs to be the filename of the component.
 
 ```javascript
 cy.setExample('NameOfTheComponent')
+```
+
+
+# Release
+
+Release a new version of this package:
+
+```
+yarn run release
 ```
