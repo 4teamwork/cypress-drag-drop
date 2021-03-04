@@ -121,11 +121,14 @@ const DragSimulator = {
     })
   },
   drag(sourceWrapper, targetSelector, options) {
-    this.init(sourceWrapper, targetSelector, options)
+    const action = this.init(sourceWrapper, targetSelector, options)
       .then(() => this.dragstart())
-      .then(() => this.dragover())
-      .then(() => this.drop())
-      .then(() => true)
+      .then(() => this.dragover());
+    if (options && options.hoverTime && (options.hoverTime > 0)) {
+      action.then(() => cy.wait(options.hoverTime));
+    }
+    action.then(() => this.drop())
+      .then(() => true);
   },
   move(sourceWrapper, options) {
     const { x: deltaX, y: deltaY } = options
