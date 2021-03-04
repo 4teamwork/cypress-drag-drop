@@ -100,6 +100,7 @@ const DragSimulator = {
           clientY,
           eventConstructor: 'PointerEvent',
         })
+        .trigger('mousemove', this.position)
         .wait(this.DELAY_INTERVAL_MS)
         .then(() => this.dragover({ clientX, clientY }))
     }
