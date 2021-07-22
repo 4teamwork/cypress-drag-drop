@@ -1,6 +1,6 @@
 name: Build and test cypress-drag-drop
 
-on: push
+on: [push, pull_request]
 
 jobs:
   test:
