@@ -8,7 +8,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "webpack-dev-server & cypress open",
     "test:ci": "webpack-dev-server & cypress run",
-    "preversion": "yarn run lint && yarn run test:unit && yarn run build",
+    "preversion": "yarn run lint && yarn run test:ci",
     "postversion": "git push --tags && npm publish --access=public && git push",
     "release": "yarn version"
   },
