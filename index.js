@@ -1,5 +1,9 @@
 const dataTransfer = new DataTransfer()
 
+function omit(object = {}, keys = []) {
+  return Object.entries(object).reduce((accum, [key, value]) => (key in keys ? accum : { ...accum, [key]: value }), {})
+}
+
 function isAttached(element) {
   return !!element.closest('html')
 }
@@ -11,6 +15,12 @@ const DragSimulator = {
   targetElement: null,
   rectsEqual(r1, r2) {
     return r1.top === r2.top && r1.right === r2.right && r1.bottom === r2.bottom && r1.left === r2.left
+  },
+  createDefaultOptions(options) {
+    const commonOptions = omit(options, ['source', 'target'])
+    const source = { ...commonOptions, ...options.source }
+    const target = { ...commonOptions, ...options.target }
+    return { source, target }
   },
   get dropped() {
     const currentSourcePosition = this.source.getBoundingClientRect()
@@ -34,7 +44,7 @@ const DragSimulator = {
         clientX,
         clientY,
         eventConstructor: 'PointerEvent',
-        ...this.options,
+        ...this.options.source,
       })
       .trigger('mousedown', {
         which: 1,
@@ -42,16 +52,16 @@ const DragSimulator = {
         clientX,
         clientY,
         eventConstructor: 'MouseEvent',
-        ...this.options,
+        ...this.options.source,
       })
-      .trigger('dragstart', { dataTransfer, eventConstructor: 'DragEvent', ...this.options })
+      .trigger('dragstart', { dataTransfer, eventConstructor: 'DragEvent', ...this.options.source })
   },
   drop({ clientX, clientY } = {}) {
     return this.target
       .trigger('drop', {
         dataTransfer,
         eventConstructor: 'DragEvent',
-        ...this.options,
+        ...this.options.target,
       })
       .then(() => {
         if (isAttached(this.targetElement)) {
@@ -62,7 +72,7 @@ const DragSimulator = {
               clientX,
               clientY,
               eventConstructor: 'MouseEvent',
-              ...this.options,
+              ...this.options.target,
             })
             .then(() => {
               if (isAttached(this.targetElement)) {
@@ -72,7 +82,7 @@ const DragSimulator = {
                   clientX,
                   clientY,
                   eventConstructor: 'PointerEvent',
-                  ...this.options,
+                  ...this.options.target,
                 })
               }
             })
@@ -86,16 +96,16 @@ const DragSimulator = {
         .trigger('dragover', {
           dataTransfer,
           eventConstructor: 'DragEvent',
-          ...this.options,
+          ...this.options.target,
         })
         .trigger('mousemove', {
-          ...this.options,
+          ...this.options.target,
           clientX,
           clientY,
           eventConstructor: 'MouseEvent',
         })
         .trigger('pointermove', {
-          ...this.options,
+          ...this.options.target,
           clientX,
           clientY,
           eventConstructor: 'PointerEvent',
@@ -108,11 +118,7 @@ const DragSimulator = {
     }
   },
   init(source, target, options = {}) {
-    this.options = {
-      ...options,
-      position: options.position || 'top',
-      force: options.force || false,
-    }
+    this.options = this.createDefaultOptions(options)
     this.counter = 0
     this.source = source.get(0)
     this.initialSourcePosition = this.source.getBoundingClientRect()
@@ -128,7 +134,7 @@ const DragSimulator = {
       .then(() => true)
   },
   move(sourceWrapper, options) {
-    const { x: deltaX, y: deltaY } = options
+    const { deltaX, deltaY } = options
     const { top, left } = sourceWrapper.offset()
     const finalCoords = { clientX: top + deltaX, clientY: left + deltaY }
     this.init(sourceWrapper, sourceWrapper, options)
