@@ -8,9 +8,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "webpack-dev-server & cypress open",
     "test:ci": "webpack-dev-server & cypress run",
-    "preversion": "yarn run lint && yarn run test:ci",
-    "postversion": "git push --tags && npm publish --access=public && git push",
-    "release": "yarn version"
+    "release": "yarn run lint && yarn run test:ci && release-it"
   },
   "prettier": "@4tw/prettier-config",
   "repository": {
@@ -33,11 +31,13 @@
   "devDependencies": {
     "@4tw/eslint-config": "^0.6.0",
     "@4tw/prettier-config": "^1.0.3",
+    "@release-it/keep-a-changelog": "^2.3.0",
     "@testing-library/cypress": "^7.0.2",
     "css-loader": "^3.4.0",
     "cypress": "^8.0.0",
     "eslint": "^7.15.0",
     "prettier": "^2.2.1",
+    "release-it": "^14.11.5",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.5",
     "vue-style-loader": "^4.1.2",
