@@ -1,13 +1,14 @@
 /// <reference types="cypress" />
 
 type Options = Partial<Cypress.ClickOptions & {
-  position: Cypress.PositionType
+  source: Cypress.ClickOptions
+  target: Cypress.ClickOptions
 }>
 
-type MoveOptions = Options & {
-  x: number
-  y: number
-}
+type MoveOptions = Partial<Cypress.ClickOptions & {
+  deltaX: number
+  deltaY: number
+}>
 
 declare namespace Cypress {
   interface Chainable {
