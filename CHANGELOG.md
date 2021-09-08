@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-09-08
+
 - It's possible to apply different options to either the drag source or the drop target.
 - BREAKING: Default position for the event trigger is in the element's center.
 
