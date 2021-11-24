@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add ability to check the drag command outcome.
 - Add support for Cypress 9.x.
 
 ## [2.0.0] - 2021-09-08

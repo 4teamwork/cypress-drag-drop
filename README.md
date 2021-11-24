@@ -87,6 +87,24 @@ cy.get('.sourceitem').drag('.target', {
 The options are directly passed to Cypress' `trigger` command.
 So, all options from https://docs.cypress.io/api/commands/trigger#Arguments are possible.
 
+### Check command outcome
+
+The `drag` command is able to tell wether the drag attempt was successful or not. So, the command will yield `true` when the drag attempt was successful and `false` otherwise:
+
+``` javascript
+cy.get('.sourceitem').drag('.target').then((success) => {
+  assert.isTrue(success)
+})
+```
+
+Or you might also want to check that the element is not draggable:
+
+``` javascript
+cy.get('.sourceitem').drag('.target').then((success) => {
+  assert.isFalse(success)
+})
+```
+
 ## move
 
 The `move` command is a child command.

@@ -115,6 +115,9 @@ const DragSimulator = {
     }
     if (!this.dropped) {
       console.error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`)
+      return false
+    } else {
+      return true
     }
   },
   init(source, target, options = {}) {
@@ -130,8 +133,13 @@ const DragSimulator = {
     this.init(sourceWrapper, targetSelector, options)
       .then(() => this.dragstart())
       .then(() => this.dragover())
-      .then(() => this.drop())
-      .then(() => true)
+      .then((success) => {
+        if (success) {
+          return this.drop().then(() => true)
+        } else {
+          return false
+        }
+      })
   },
   move(sourceWrapper, options) {
     const { deltaX, deltaY } = options
