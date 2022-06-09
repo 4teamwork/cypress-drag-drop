@@ -35,28 +35,26 @@ const DragSimulator = {
   get target() {
     return cy.wrap(this.targetElement)
   },
-  dragstart({ clientX, clientY } = {}) {
+  dragstart(clientPosition = {}) {
     return cy
       .wrap(this.source)
       .trigger('pointerdown', {
         which: 1,
         button: 0,
-        clientX,
-        clientY,
+        ...clientPosition,
         eventConstructor: 'PointerEvent',
         ...this.options.source,
       })
       .trigger('mousedown', {
         which: 1,
         button: 0,
-        clientX,
-        clientY,
+        ...clientPosition,
         eventConstructor: 'MouseEvent',
         ...this.options.source,
       })
       .trigger('dragstart', { dataTransfer, eventConstructor: 'DragEvent', ...this.options.source })
   },
-  drop({ clientX, clientY } = {}) {
+  drop(clientPosition = {}) {
     return this.target
       .trigger('drop', {
         dataTransfer,
@@ -69,8 +67,7 @@ const DragSimulator = {
             .trigger('mouseup', {
               which: 1,
               button: 0,
-              clientX,
-              clientY,
+              ...clientPosition,
               eventConstructor: 'MouseEvent',
               ...this.options.target,
             })
@@ -79,8 +76,7 @@ const DragSimulator = {
                 this.target.trigger('pointerup', {
                   which: 1,
                   button: 0,
-                  clientX,
-                  clientY,
+                  ...clientPosition,
                   eventConstructor: 'PointerEvent',
                   ...this.options.target,
                 })
@@ -89,7 +85,7 @@ const DragSimulator = {
         }
       })
   },
-  dragover({ clientX, clientY } = {}) {
+  dragover(clientPosition = {}) {
     if (!this.counter || (!this.dropped && this.hasTriesLeft)) {
       this.counter += 1
       return this.target
@@ -100,18 +96,16 @@ const DragSimulator = {
         })
         .trigger('mousemove', {
           ...this.options.target,
-          clientX,
-          clientY,
+          ...clientPosition,
           eventConstructor: 'MouseEvent',
         })
         .trigger('pointermove', {
           ...this.options.target,
-          clientX,
-          clientY,
+          ...clientPosition,
           eventConstructor: 'PointerEvent',
         })
         .wait(this.DELAY_INTERVAL_MS)
-        .then(() => this.dragover({ clientX, clientY }))
+        .then(() => this.dragover(clientPosition))
     }
     if (!this.dropped) {
       console.error(`Exceeded maximum tries of: ${this.MAX_TRIES}, aborting`)
