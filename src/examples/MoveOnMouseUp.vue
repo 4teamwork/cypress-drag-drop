@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .absolute {
   position: absolute;
   margin: 0;
