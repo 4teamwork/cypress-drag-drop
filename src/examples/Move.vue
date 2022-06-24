@@ -56,8 +56,8 @@ export default {
 .absolute {
   position: absolute;
   margin: 0;
-  top: 100px;
-  left: 100px;
+  top: 10px;
+  left: 20px;
   width: 1000px;
   height: 1000px;
 }

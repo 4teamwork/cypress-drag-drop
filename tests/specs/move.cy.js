@@ -6,17 +6,17 @@ describe('Drag drop', () => {
 
     cy.findByTestId('draggable').should((target) => {
       const { top, left } = target.offset()
-      expect(top).to.be.equal(100)
-      expect(left).to.be.equal(100)
+      expect(top).to.be.equal(10)
+      expect(left).to.be.equal(20)
     })
 
-    cy.findByTestId('draggable').move({ deltaX: 100, deltaY: 100 })
+    cy.findByTestId('draggable').move({ deltaX: 30, deltaY: 40 })
 
-    cy.findByTestId('draggable').should('have.css', 'transform', 'matrix(1, 0, 0, 1, 100, 100)')
+    cy.findByTestId('draggable').should('have.css', 'transform', 'matrix(1, 0, 0, 1, 30, 40)')
     cy.findByTestId('draggable').should((target) => {
       const { top, left } = target.offset()
-      expect(top).to.be.equal(200)
-      expect(left).to.be.equal(200)
+      expect(top).to.be.equal(50)
+      expect(left).to.be.equal(50)
     })
   })
 
@@ -27,17 +27,17 @@ describe('Drag drop', () => {
 
     cy.findByTestId('draggable').should((target) => {
       const { top, left } = target.offset()
-      expect(top).to.be.equal(100)
-      expect(left).to.be.equal(100)
+      expect(top).to.be.equal(10)
+      expect(left).to.be.equal(20)
     })
 
-    cy.findByTestId('draggable').move({ deltaX: 100, deltaY: 100 })
+    cy.findByTestId('draggable').move({ deltaX: 30, deltaY: 40 })
 
-    cy.findByTestId('draggable').should('have.css', 'transform', 'matrix(1, 0, 0, 1, 100, 100)')
+    cy.findByTestId('draggable').should('have.css', 'transform', 'matrix(1, 0, 0, 1, 30, 40)')
     cy.findByTestId('draggable').should((target) => {
       const { top, left } = target.offset()
-      expect(top).to.be.equal(200)
-      expect(left).to.be.equal(200)
+      expect(top).to.be.equal(50)
+      expect(left).to.be.equal(50)
     })
   })
 })
