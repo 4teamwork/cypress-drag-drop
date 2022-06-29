@@ -138,7 +138,7 @@ const DragSimulator = {
   move(sourceWrapper, options) {
     const { deltaX, deltaY } = options
     const { top, left } = sourceWrapper.offset()
-    const finalCoords = { clientX: top + deltaX, clientY: left + deltaY }
+    const finalCoords = { clientX: left + deltaX, clientY: top + deltaY }
     this.init(sourceWrapper, sourceWrapper, options)
       .then(() => this.dragstart({ clientX: left, clientY: top }))
       .then(() => this.dragover(finalCoords))
