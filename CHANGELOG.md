@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add support for Cypress 11.x.
+
 ## [2.2.1] - 2022-06-29
 
 - Fix swapped variables in move command.
