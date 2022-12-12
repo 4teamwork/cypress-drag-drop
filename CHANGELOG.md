@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add support for Cypress 12.x.
+
 ## [2.2.2] - 2022-11-23
 
 - Add support for Cypress 11.x.
