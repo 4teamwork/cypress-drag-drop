@@ -1,8 +1,13 @@
 /// <reference types="cypress" />
 
+type LocationOptions = {
+  x: number
+  y: number
+}
+
 type Options = Partial<Cypress.ClickOptions & {
-  source: Cypress.ClickOptions
-  target: Cypress.ClickOptions
+  source: Cypress.ClickOptions | LocationOptions
+  target: Cypress.ClickOptions | LocationOptions
 }>
 
 type MoveOptions = Partial<Cypress.ClickOptions & {
