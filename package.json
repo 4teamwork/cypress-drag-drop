@@ -1,6 +1,6 @@
 {
   "name": "@4tw/cypress-drag-drop",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "A cypress child command for drag'n'drop support.",
   "main": "index.js",
   "types": "index.d.ts",
