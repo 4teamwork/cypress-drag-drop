@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.5] - 2023-07-07
+
+- Add dragend event trigger to drop function
+
 ## [2.2.4] - 2023-06-01
 
 - Extend type Options to allow for x/y use
