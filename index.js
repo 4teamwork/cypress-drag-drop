@@ -80,6 +80,11 @@ const DragSimulator = {
                   eventConstructor: 'PointerEvent',
                   ...this.options.target,
                 })
+                this.target.trigger('dragend', {
+                  dataTransfer,
+                  eventConstructor: 'DragEvent',
+                  ...this.options.target
+                })
               }
             })
         }
