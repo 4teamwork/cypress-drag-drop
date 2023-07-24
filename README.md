@@ -89,7 +89,7 @@ So, all options from https://docs.cypress.io/api/commands/trigger#Arguments are 
 
 ### Check command outcome
 
-The `drag` command is able to tell wether the drag attempt was successful or not. So, the command will yield `true` when the drag attempt was successful and `false` otherwise:
+The `drag` command is able to tell whether the drag attempt was successful or not. So, the command will yield `true` when the drag attempt was successful and `false` otherwise:
 
 ``` javascript
 cy.get('.sourceitem').drag('.target').then((success) => {
