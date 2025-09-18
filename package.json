@@ -1,6 +1,6 @@
 {
   "name": "@4tw/cypress-drag-drop",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "A cypress child command for drag'n'drop support.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -29,13 +29,13 @@
   },
   "homepage": "https://github.com/4teamwork/cypress-drag-drop#readme",
   "devDependencies": {
-    "@4tw/eslint-config": "^0.6.0",
+    "@4tw/eslint-config": "^3.0.0",
     "@4tw/prettier-config": "^1.0.3",
     "@release-it/keep-a-changelog": "^2.3.0",
-    "@testing-library/cypress": "^7.0.2",
+    "@testing-library/cypress": "^10.1.0",
     "css-loader": "^3.4.0",
-    "cypress": "^14.0.0",
-    "eslint": "^7.15.0",
+    "cypress": "^15.0.0",
+    "eslint": "^8.2.0",
     "prettier": "^2.2.1",
     "release-it": "^14.11.5",
     "vue": "^2.6.12",
@@ -48,6 +48,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "peerDependencies": {
-    "cypress": "2 - 14"
+    "cypress": ">=2"
   }
 }
